@@ -26,7 +26,7 @@ const Bill = () => {
 
   const getBillData = async () => {
     try {
-      const response = await fetch("https://sg-store5.onrender.com/api/v1/bill/getall", {
+      const response = await fetch("https://sgstoremain2.onrender.com/api/v1/bill/getall", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const Bill = () => {
 
   const deleteBill = async (id) => {
     try {
-      const res2 = await fetch(`https://sg-store5.onrender.com/api/v1/bill/delete/${id}`, {
+      const res2 = await fetch(`https://sgstoremain2.onrender.com/api/v1/bill/delete/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

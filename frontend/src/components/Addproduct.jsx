@@ -32,7 +32,7 @@ function Addproduct() {
     const { uniqueid, name, brand, color, qty, size, price } = inpval;
     const adminToken = localStorage.getItem('adminToken');
     try {
-      const res = await fetch('https://sg-store5.onrender.com/api/v1/admin/addproducts', {
+      const res = await fetch('https://sgstoremain2.onrender.com/api/v1/admin/addproducts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

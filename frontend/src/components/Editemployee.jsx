@@ -25,7 +25,7 @@ function Editemployee() {
 
   
     try {
-      const response = await fetch(`https://sg-store5.onrender.com/api/v1/employee/me/${id}`, {
+      const response = await fetch(`https://sgstoremain2.onrender.com/api/v1/employee/me/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ function Editemployee() {
     const { name, email, phone, password, address } = inpval;
 
     try {
-      const response = await fetch(`https://sg-store5.onrender.com/api/v1/employee/me/update/${id}`, {
+      const response = await fetch(`https://sgstoremain2.onrender.com/api/v1/employee/me/update/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

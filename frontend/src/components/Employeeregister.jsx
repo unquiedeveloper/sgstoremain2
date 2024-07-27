@@ -28,7 +28,7 @@ function Employeeregister() {
     const { name, email, phone, password, address, role } = inpval;
 
     try {
-        const res = await fetch("https://sg-store5.onrender.com/api/v1/employee/register", {
+        const res = await fetch("https://sgstoremain2.onrender.com/api/v1/employee/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

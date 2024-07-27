@@ -22,7 +22,7 @@ const Services = () => {
   // Function to fetch employee data from API
   const getEmployeeData = async () => {
     try {
-      const response = await fetch("https://sg-store5.onrender.com/api/v1/employee/getall", {
+      const response = await fetch("https://sgstoremain2.onrender.com/api/v1/employee/getall", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -62,7 +62,7 @@ const Services = () => {
   const deleteEmployee = async (id) => {
     const token = localStorage.getItem('adminToken');
     try {
-      const res2 = await fetch(`https://sg-store5.onrender.com/api/v1/employee/me/${id}`, {
+      const res2 = await fetch(`https://sgstoremain2.onrender.com/api/v1/employee/me/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

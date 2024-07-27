@@ -10,7 +10,7 @@ function Productdetail() {
   const getProductData = async () => {
     const token = localStorage.getItem('adminToken');
     try {
-      const response = await fetch(`https://sg-store5.onrender.com/api/v1/admin/product/me/${id}`, {
+      const response = await fetch(`https://sgstoremain2.onrender.com/api/v1/admin/product/me/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

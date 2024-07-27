@@ -82,7 +82,7 @@ const Home = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('https://sg-store5.onrender.com/api/v1/employee/getall');
+            const response = await axios.get('https://sgstoremain2.onrender.com/api/v1/employee/getall');
             console.log(response.data.employees);
             setEmployees(response.data.employees.slice(0, 5));
         } catch (error) {

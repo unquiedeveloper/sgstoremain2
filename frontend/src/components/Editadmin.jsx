@@ -27,7 +27,7 @@ function Editadmin() {
     const token = localStorage.getItem('adminToken'); // Get the token for authentication
 
     try {
-      const response = await fetch(`https://sg-store5.onrender.com/api/v1/admin/me/${id}`, {
+      const response = await fetch(`https://sgstoremain2.onrender.com/api/v1/admin/me/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -62,7 +62,7 @@ function Editadmin() {
     const token = localStorage.getItem('adminToken');
 
     try {
-      const response = await fetch(`https://sg-store5.onrender.com/api/v1/admin/me/update/${id}`, {
+      const response = await fetch(`https://sgstoremain2.onrender.com/api/v1/admin/me/update/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

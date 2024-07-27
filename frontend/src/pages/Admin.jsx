@@ -22,7 +22,7 @@ const Admin = () => {
   // Function to fetch admin data from API
   const getAdminData = async () => {
     try {
-      const response = await fetch("https://sg-store5.onrender.com/api/v1/admin/getall", {
+      const response = await fetch("https://sgstoremain2.onrender.com/api/v1/admin/getall", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +61,7 @@ const Admin = () => {
   const deleteAdmin = async (id) => {
     const token = localStorage.getItem('adminToken');
     try {
-      const res2 = await fetch(`https://sg-store5.onrender.com/api/v1/admin/delete/${id}`, {
+      const res2 = await fetch(`https://sgstoremain2.onrender.com/api/v1/admin/delete/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

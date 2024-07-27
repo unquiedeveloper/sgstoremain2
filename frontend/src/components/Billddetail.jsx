@@ -9,7 +9,7 @@ function Billddetail() {
 
   const getEmployeeData = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/api/v1/bill/me/${id}`, {
+      const response = await fetch(`https://sgstoremain2.onrender.com/api/v1/bill/me/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

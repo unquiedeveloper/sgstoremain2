@@ -28,7 +28,7 @@ function Editproduct() {
     const getEmployeeData = async () => {
         const token = localStorage.getItem('adminToken');
         try {
-            const response = await fetch(`https://sg-store5.onrender.com/api/v1/admin/product/me/${id}`, {
+            const response = await fetch(`https://sgstoremain2.onrender.com/api/v1/admin/product/me/${id}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -63,7 +63,7 @@ function Editproduct() {
 
         const { uniqueid, name, brand, color, qty, size, price } = inpval;
 
-        const res = await fetch(`https://sg-store5.onrender.com/api/v1/admin/products/${id}`, {
+        const res = await fetch(`https://sgstoremain2.onrender.com/api/v1/admin/products/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

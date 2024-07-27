@@ -28,7 +28,7 @@ function Editbill() {
     const token = localStorage.getItem("adminToken"); // Get the token for authentication
 
     try {
-      const response = await fetch(`http://localhost:4000/api/v1/bill/me/${id}`, {
+      const response = await fetch(`https://sgstoremain2.onrender.com/api/v1/bill/me/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ function Editbill() {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/api/v1/bill/update/${id}`,
+        `https://sgstoremain2.onrender.com/api/v1/bill/update/${id}`,
         {
           method: "PUT",
           headers: {

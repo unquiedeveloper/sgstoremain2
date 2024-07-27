@@ -19,8 +19,8 @@ const Login = () => {
         console.log(credential.role);  // Log the role from credential
 
         const apiUrl = credential.role === "admin"
-            ? "https://sg-store5.onrender.com/api/v1/admin/login"
-            : "https://sg-store5.onrender.com/api/v1/employee/login";
+            ? "https://sgstoremain2.onrender.com/api/v1/admin/login"
+            : "https://sgstoremain2.onrender.com/api/v1/employee/login";
 
         try {
             const response = await fetch(apiUrl, {

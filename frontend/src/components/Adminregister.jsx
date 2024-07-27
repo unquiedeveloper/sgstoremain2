@@ -27,7 +27,7 @@ function Adminregister() {
     const adminToken = localStorage.getItem('adminToken'); // Ensure this matches how the token is set on successful login
 
     try {
-      const res = await fetch('https://sg-store5.onrender.com/api/v1/admin/register', {
+      const res = await fetch('https://sgstoremain2.onrender.com/api/v1/admin/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
