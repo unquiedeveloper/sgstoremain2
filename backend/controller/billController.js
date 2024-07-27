@@ -2,8 +2,9 @@ import { Bill } from '../models/billSchema.js';
 import { Product } from '../models/productSchema.js';
 import mongoose from 'mongoose';
 
+
 export const createBill = async (req, res) => {
-    const { customerName, phoneNumber, address, products, couponAmount = 0, status } = req.body;
+    const { customerName, phoneNumber, address, products, couponAmount = 0 , status } = req.body;
 
     try {
         let totalAmount = 0;
@@ -12,6 +13,7 @@ export const createBill = async (req, res) => {
         for (const product of products) {
             const { uniqueid, quantity } = product;
 
+            // Find product by uniqueid
             const existingProduct = await Product.findOne({ uniqueid });
 
             if (!existingProduct) {
@@ -21,6 +23,7 @@ export const createBill = async (req, res) => {
                 });
             }
 
+            // Check if sufficient quantity is available
             if (existingProduct.qty < quantity) {
                 return res.status(400).json({
                     success: false,
@@ -28,12 +31,16 @@ export const createBill = async (req, res) => {
                 });
             }
 
+            // Calculate total amount for the bill
             totalAmount += existingProduct.price * quantity;
 
+            // Reduce product quantity in stock
             existingProduct.qty -= quantity;
 
             await existingProduct.save();
+           
 
+            // Add product details to the updatedProducts array
             updatedProducts.push({
                 uniqueid,
                 quantity,
@@ -42,22 +49,23 @@ export const createBill = async (req, res) => {
             });
         }
 
+        // Subtract coupon amount from the total amount
         totalAmount -= couponAmount;
 
+        // Create new bill with updated products
         const newBill = await Bill.create({
             customerName,
             phoneNumber,
             address,
             products: updatedProducts,
             totalAmount,
-            couponAmount,
+            couponAmount, 
             status
         });
 
-
         res.status(201).json({
             success: true,
-            message: 'Bill created successfully and WhatsApp message sent!',
+            message: 'Bill created successfully!',
             bill: newBill
         });
     } catch (error) {

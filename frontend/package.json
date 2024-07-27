@@ -17,6 +17,7 @@
     "@zxing/library": "^0.21.2",
     "axios": "^1.7.2",
     "chart.js": "^4.4.3",
+    "date-fns": "^3.6.0",
     "instascan": "^1.0.0",
     "jsbarcode": "^3.11.6",
     "jsp": "^0.0.2",
@@ -25,11 +26,13 @@
     "react": "^18.3.1",
     "react-barcode-reader": "^0.0.2",
     "react-chartjs-2": "^5.2.0",
+    "react-datepicker": "^7.3.0",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^5.2.1",
     "react-router-dom": "^6.24.1",
     "react-webcam": "^7.2.0",
+    "twilio": "^5.2.2",
     "yarn": "^1.22.22"
   },
   "devDependencies": {
