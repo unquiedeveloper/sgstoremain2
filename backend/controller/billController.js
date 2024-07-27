@@ -1,10 +1,6 @@
 import { Bill } from '../models/billSchema.js';
 import { Product } from '../models/productSchema.js';
 import mongoose from 'mongoose';
-// import twilio from 'twilio';
-// const accountSid = 'AC45836df1be62b43b7e6022ca01e60a57';
-// const authToken = '8ce3dc2a86d3d841b9fb93e2b4348a5f';
-// const client = twilio(accountSid, authToken);
 
 export const createBill = async (req, res) => {
     const { customerName, phoneNumber, address, products, couponAmount = 0, status } = req.body;
@@ -58,30 +54,6 @@ export const createBill = async (req, res) => {
             status
         });
 
-        // let messageBody = `Hello ${customerName}, your bill of amount ${totalAmount} has been created successfully.`;
-
-        // if (totalAmount >= 1000) {
-        //     messageBody += " Congratulations!! You have earned a gift voucher to spin and win as you shop from SG Store.";
-        // } else {
-        //     messageBody += " Congratulations! Thank you for shopping from SG Store.";
-        // }
-
-        // console.log('Sending message:', messageBody);
-
-        // client.messages.create({
-        //     body: messageBody,
-        //     from: 'whatsapp:+14155238886', // Twilio's sandbox number for WhatsApp
-        //     to: `whatsapp:${phoneNumber}`
-        // })
-        // .then(message => console.log('Message sent:', message.sid))
-        // .catch(error => {
-        //     console.error('Error sending message:', error);
-        //     res.status(500).json({
-        //         success: false,
-        //         message: 'Failed to send WhatsApp message',
-        //         error: error.message
-        //     });
-        // });
 
         res.status(201).json({
             success: true,
