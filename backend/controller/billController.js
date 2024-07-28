@@ -2,80 +2,74 @@ import { Bill } from '../models/billSchema.js';
 import { Product } from '../models/productSchema.js';
 import mongoose from 'mongoose';
 
-
 export const createBill = async (req, res) => {
     const { customerName, phoneNumber, address, products, couponAmount = 0 , status } = req.body;
-
+  
+    // Start a session and begin a transaction
+    const session = await mongoose.startSession();
+    session.startTransaction();
+  
     try {
-        let totalAmount = 0;
-        const updatedProducts = [];
-
-        for (const product of products) {
-            const { uniqueid, quantity } = product;
-
-            // Find product by uniqueid
-            const existingProduct = await Product.findOne({ uniqueid });
-
-            if (!existingProduct) {
-                return res.status(404).json({
-                    success: false,
-                    message: `Product with uniqueid ${uniqueid} not found`
-                });
-            }
-
-            // Check if sufficient quantity is available
-            if (existingProduct.qty < quantity) {
-                return res.status(400).json({
-                    success: false,
-                    message: `Insufficient quantity available for product with uniqueid ${uniqueid}`
-                });
-            }
-
-            // Calculate total amount for the bill
-            totalAmount += existingProduct.price * quantity;
-
-            // Reduce product quantity in stock
-            existingProduct.qty -= quantity;
-
-            await existingProduct.save();
-           
-
-            // Add product details to the updatedProducts array
-            updatedProducts.push({
-                uniqueid,
-                quantity,
-                productname: existingProduct.name,
-                price: existingProduct.price
-            });
+      let totalAmount = 0;
+      const updatedProducts = [];
+  
+      for (const product of products) {
+        const { uniqueid, quantity } = product;
+  
+        // Find product by uniqueid within the session
+        const existingProduct = await Product.findOne({ uniqueid }).session(session);
+  
+        if (!existingProduct) {
+          throw new Error(`Product with uniqueid ${uniqueid} not found`);
         }
-
-        // Subtract coupon amount from the total amount
-        totalAmount -= couponAmount;
-
-        // Create new bill with updated products
-        const newBill = await Bill.create({
-            customerName,
-            phoneNumber,
-            address,
-            products: updatedProducts,
-            totalAmount,
-            couponAmount, 
-            status
-        });
-
-        res.status(201).json({
-            success: true,
-            message: 'Bill created successfully!',
-            bill: newBill
-        });
+  
+        // Check if sufficient quantity is available
+        if (existingProduct.qty < quantity) {
+          throw new Error(`Insufficient quantity for product ${uniqueid}`);
+        }
+  
+        // Reduce quantity and save the product within the session
+        existingProduct.qty -= quantity;
+        await existingProduct.save({ session });
+  
+        // Calculate total amount
+        totalAmount += existingProduct.price * quantity;
+  
+        // Add updated product to the list
+        updatedProducts.push({ uniqueid, quantity, price: existingProduct.price });
+      }
+  
+      // Apply coupon amount to the total amount
+      const finalAmount = totalAmount - couponAmount;
+  
+      // Create a new bill with the updated products and final amount
+      const newBill = new Bill({
+        customerName,
+        phoneNumber,
+        address,
+        products: updatedProducts,
+        totalAmount: finalAmount,
+        status,
+      });
+  
+      // Save the new bill within the session
+      await newBill.save({ session });
+  
+      // Commit the transaction
+      await session.commitTransaction();
+      session.endSession();
+  
+      // Send success response with the created bill
+      res.status(201).json({ message: 'Bill created successfully', bill: newBill });
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Failed to create bill',
-            error: error.message
-        });
+      // Abort the transaction in case of error
+      await session.abortTransaction();
+      session.endSession();
+      
+      // Send error response
+      res.status(400).json({ message: error.message });
     }
-};
+  };
 
 
 export const getallBill = async (req, res) => {
